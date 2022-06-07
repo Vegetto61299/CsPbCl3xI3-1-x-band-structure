@@ -37,13 +37,13 @@ double interpol(double x, double bowing, double A, double B) {
 class hamil {//klasa do obliczenia struktur elektronowych na drodze gamma - R - M
 public:
     Eigen::MatrixXcd H;
-    double *eigv[5];
+    double *eigv[9];
     Eigen::SelfAdjointEigenSolver<Eigen::MatrixXcd> solver;
     hamil(double x, double T, double nap, int N) {
         std::fstream plik;
         plik.open("nazwa_pliku.txt", std::fstream::out);
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 9; i++)
             eigv[i] = new double[N];//Eg
         H.resize(8, 8);
         double B = -2* evtohart;
@@ -105,8 +105,8 @@ public:
                 for (int j = 0; j < i; j++)
                     H(j, i) = conj(H(i, j));
             solver.compute(H);
-            for(int i=1;i<5;i++)
-                eigv[i][k] = solver.eigenvalues()[i*2-1]/evtohart;
+            for(int i=1;i<9;i++)
+                eigv[i][k] = solver.eigenvalues()[i-1]/evtohart;
         }
         plik << H;
         plik << std::endl;

@@ -518,19 +518,19 @@ namespace Projekt {
 			System::Windows::Forms::DataVisualization::Charting::Series^ series5 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			System::Windows::Forms::DataVisualization::Charting::Series^ series6 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			series3->ChartArea = L"ChartArea1";
-			series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
 			series3->Legend = L"Legend1";
 			series3->Name = L"VB";
 			series4->ChartArea = L"ChartArea1";
-			series4->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series4->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
 			series4->Legend = L"Legend1";
 			series4->Name = L"CS";
 			series5->ChartArea = L"ChartArea1";
-			series5->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series5->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
 			series5->Legend = L"Legend1";
 			series5->Name = L"CH";
 			series6->ChartArea = L"ChartArea1";
-			series6->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series6->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
 			series6->Legend = L"Legend1";
 			series6->Name = L"CL";
 			this->chart1->Series->Add(series3);
@@ -772,13 +772,17 @@ private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e
 	series_init(2);
 	for (int i = 0; i < n; i++) {
 		this->chart1->Series["VB"]->Points->AddXY(gmr.eigv[0][i], gmr.eigv[1][i]);
-		this->chart1->Series["CS"]->Points->AddXY(gmr.eigv[0][i], gmr.eigv[2][i]);
-		this->chart1->Series["CH"]->Points->AddXY(gmr.eigv[0][i], gmr.eigv[3][i]);
-		this->chart1->Series["CL"]->Points->AddXY(gmr.eigv[0][i], gmr.eigv[4][i]);
+		this->chart1->Series["CS"]->Points->AddXY(gmr.eigv[0][i], gmr.eigv[3][i]);
+		this->chart1->Series["CH"]->Points->AddXY(gmr.eigv[0][i], gmr.eigv[5][i]);
+		this->chart1->Series["CL"]->Points->AddXY(gmr.eigv[0][i], gmr.eigv[7][i]);
+		this->chart1->Series["VB"]->Points->AddXY(gmr.eigv[0][i], gmr.eigv[2][i]);
+		this->chart1->Series["CS"]->Points->AddXY(gmr.eigv[0][i], gmr.eigv[4][i]);
+		this->chart1->Series["CH"]->Points->AddXY(gmr.eigv[0][i], gmr.eigv[6][i]);
+		this->chart1->Series["CL"]->Points->AddXY(gmr.eigv[0][i], gmr.eigv[8][i]);
 		this->chart1->Series["VB0"]->Points->AddXY(gmr0.eigv[0][i], gmr0.eigv[1][i]);
-		this->chart1->Series["CS0"]->Points->AddXY(gmr0.eigv[0][i], gmr0.eigv[2][i]);
-		this->chart1->Series["CH0"]->Points->AddXY(gmr0.eigv[0][i], gmr0.eigv[3][i]);
-		this->chart1->Series["CL0"]->Points->AddXY(gmr0.eigv[0][i], gmr0.eigv[4][i]);
+		this->chart1->Series["CS0"]->Points->AddXY(gmr0.eigv[0][i], gmr0.eigv[3][i]);
+		this->chart1->Series["CH0"]->Points->AddXY(gmr0.eigv[0][i], gmr0.eigv[5][i]);
+		this->chart1->Series["CL0"]->Points->AddXY(gmr0.eigv[0][i], gmr0.eigv[7][i]);
 }
 
 	this->chart1->Titles->Add("GAMMA-R-M, naprężenie = " + naprezenie->Value + "%, x = " + sklad->Value+ ", T= " + Temp->Value+" (K)");
