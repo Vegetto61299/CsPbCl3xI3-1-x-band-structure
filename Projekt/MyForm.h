@@ -591,10 +591,10 @@ namespace Projekt {
 			this->chart1->Series["CH0"]->BorderDashStyle = System::Windows::Forms::DataVisualization::Charting::ChartDashStyle::Dot;
 			this->chart1->Series["VB0"]->BorderDashStyle = System::Windows::Forms::DataVisualization::Charting::ChartDashStyle::Dot;
 			this->chart1->Series["CS0"]->BorderDashStyle = System::Windows::Forms::DataVisualization::Charting::ChartDashStyle::Dot;
-			this->chart1->Series["CL0"]->IsVisibleInLegend = 0;
 			this->chart1->Series["VB0"]->IsVisibleInLegend = 0;
 			this->chart1->Series["CH0"]->IsVisibleInLegend = 0;
 			this->chart1->Series["CS0"]->IsVisibleInLegend = 0;
+			this->chart1->Series["CL0"]->LegendText = "Odniesienie";
 		}
 	}
 	void chartsetup(int k) {
