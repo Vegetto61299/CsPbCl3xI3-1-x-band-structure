@@ -48,7 +48,7 @@ public:
         H.resize(8, 8);
         double B = -2* evtohart;
         double A = interpol(x, 0, con[Cl][a], con[I][a]) * angsttobohr;//bohr radius
-        double epsxx = (A * (1 + nap) - A) / (A + A * nap);
+        double epsxx = nap;
         double c11z = interpol(x, 0, con[Cl][c11], con[I][c11]);
         double c12z = interpol(x, 0, con[Cl][c12], con[I][c12]);
         double avz = interpol(x, 0, con[Cl][av], con[I][av]) * (1 + nap / 100)*evtohart;
