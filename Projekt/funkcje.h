@@ -47,19 +47,19 @@ public:
             eigv[i] = new double[N];//Eg
         H.resize(8, 8);
         double B = -2* evtohart;
-        double A = interpol(x, 0, con[Cl][a], con[I][a]) * angsttobohr;//bohr radius
+        double A = interpol(x, 0, con[Cl][a], con[I][a]) * (1 + nap / 100) * angsttobohr;//bohr radius
         double epsxx = nap;
         double c11z = interpol(x, 0, con[Cl][c11], con[I][c11]);
         double c12z = interpol(x, 0, con[Cl][c12], con[I][c12]);
-        double avz = interpol(x, 0, con[Cl][av], con[I][av]) * (1 + nap / 100)*evtohart;
-        double acz = interpol(x, 0, con[Cl][ac], con[I][ac]) * (1 + nap / 100)*evtohart;
+        double avz = interpol(x, 0, con[Cl][av], con[I][av]) *evtohart;
+        double acz = interpol(x, 0, con[Cl][ac], con[I][ac]) *evtohart;
         double alfa = interpol(x, 0, con[Cl][alf], con[I][alf]);// nie da³em zale¿noœci od temperatury
 
         double
             deltaz = interpol(x, 0, con[Cl][delta], con[I][delta]) * evtohart,
             Eg = (interpol(x, 0, con[Cl][eg], con[I][eg]) + alfa * T) * evtohart,
             Ep = interpol(x, 0, con[Cl][ep], con[I][ep]) * evtohart / 2,
-            VB0 = 2 * avz * (1 + c12z / c11z) * epsxx * evtohart,
+            VB0 = 2 * avz * (1 - c12z / c11z) * epsxx,
             CS0 = Eg + 2 * acz * (1 - c12z / c11z) * epsxx,
             CH0 = Eg + deltaz + 2 * acz * (1 - c12z / c11z) * epsxx + B * (1 + 2 * c12z / c11z) * epsxx,
             CL0 = Eg + deltaz + 2 * acz * (1 - c12z / c11z) * epsxx - B * (1 + 2 * c12z / c11z) * epsxx,
