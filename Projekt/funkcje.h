@@ -59,7 +59,7 @@ public:
             deltaz = interpol(x, 0, con[Cl][delta], con[I][delta]) * evtohart,
             Eg = (interpol(x, 0, con[Cl][eg], con[I][eg]) + alfa * T) * evtohart,
             Ep = interpol(x, 0, con[Cl][ep], con[I][ep]) * evtohart / 2,
-            VB0 = 2 * avz * (1 + c12z / c11z) * epsxx * evtohart,
+            VB0 = 2 * avz * (1 + c12z / c11z) * epsxx,
             CS0 = Eg + 2 * acz * (1 - c12z / c11z) * epsxx,
             CH0 = Eg + deltaz + 2 * acz * (1 - c12z / c11z) * epsxx + B * (1 + 2 * c12z / c11z) * epsxx,
             CL0 = Eg + deltaz + 2 * acz * (1 - c12z / c11z) * epsxx - B * (1 + 2 * c12z / c11z) * epsxx,
