@@ -20,7 +20,7 @@ const double con[2][13] = {
     {3.04,  1.53,   5.8,    2.2,    0.5,    0.17,   40.1,   5.61,   0.0001, 49,     8,      -5.177, -1.1874}, //cl
     {1.73,  1.44,   9.1,    3.6,    0.7,    0.095,  41.6,   6.238,  0.0009, 34.405, 4.709,  -2.762, -0.177}  //i
 };
-const double m = 1, h = 1, e = 1; //eV
+double m = 1, h = 1, e = 1; //eV
 enum constants {
     eg,delta,g1,g2,g3,mh,ep,a,alf,c11,c12,av,ac,
     Cl=0,
@@ -66,9 +66,9 @@ public:
             mhz = interpol(x, 0, con[Cl][mh], con[I][mh]) * m,
             gamv = 1 / (mhz)-Ep / 3 * (2 / Eg + 1 / (Eg + deltaz)),
             P = sqrt(h * h / 2 / m * Ep),
-            gam1 = interpol(x, 0, con[Cl][g1], con[I][g1]) - 1 / 3 * Ep / Eg,
-            gam2 = interpol(x, 0, con[Cl][g2], con[I][g2]) - 1 / 6 * Ep / Eg,
-            gam3 = interpol(x, 0, con[Cl][g3], con[I][g3]) - 1 / 6 * Ep / Eg;
+            gam1 = interpol(x, 0, con[Cl][g1], con[I][g1]) - Ep / Eg/3,
+            gam2 = interpol(x, 0, con[Cl][g2], con[I][g2]) - Ep / Eg/6,
+            gam3 = interpol(x, 0, con[Cl][g3], con[I][g3]) - Ep / Eg/6;
         double kx = 0, ky = 0, kz = 0;
         for (int k = 0; k < N + 1; k++) {
             if (k <= N / 2) {//Gamma-R
@@ -93,17 +93,17 @@ public:
                 Pp = P * (kx + 1i * ky),
                 Pm = P * (kx - 1i * ky),
                 Pz = P * kz;
-            H << VB, 0, 0, 0, 0, 0, 0, 0,
-                0, VB, 0, 0, 0, 0, 0, 0,
-                1 / sqrt(2) * Pm, 0, CH, 0, 0, 0, 0, 0,
-                -sqrt(2) / sqrt(3) * Pz, 1 / sqrt(6) * Pm, conj(S), CL, 0, 0, 0, 0,
-                -1 / sqrt(6) * Pp, -sqrt(2) / sqrt(3) * Pz, -conj(R), 0, CL, 0, 0, 0,
-                0, -1 / sqrt(2) * Pp, 0, -conj(R), -conj(S), CH, 0, 0,
-                -1 / sqrt(3) * Pz, -1 / sqrt(3) * Pm, 1 / sqrt(2) * conj(S), -D, -sqrt(3) / sqrt(2) * S, sqrt(2)* R, CS, 0,
-                -1 / sqrt(3) * Pp, 1 / sqrt(3) * Pz, -sqrt(2) * conj(R), -sqrt(3) / sqrt(2) * conj(S), D, 1 / sqrt(2) * S, 0, CS;
+            H << VB, 0, 1 / sqrt(2) * Pp, -sqrt(2) / sqrt(3) * Pz, -1 / sqrt(6) * Pm, 0, -1 / sqrt(3) * Pz, -1 / sqrt(3) * Pm,
+                0, VB, 0, 1 / sqrt(6) * Pp, -sqrt(2) / sqrt(3) * Pz, -1 / sqrt(2) * Pm, -1 / sqrt(3) * Pp, 1 / sqrt(3) * Pz,
+                0, 0, CH, S, -R, 0, S / sqrt(2), -sqrt(2) * R,
+                0, 0, 0, CL, 0, -R, -D, -sqrt(3) / sqrt(2) * S,
+                0, 0, 0, 0, CL, -S, -sqrt(3) / sqrt(2) * conj(S), D,
+                0, 0, 0, 0, 0, CH, sqrt(2)* conj(R), 1 / sqrt(2) * conj(S),
+                0, 0, 0, 0, 0, 0, CS, 0,
+                0, 0, 0, 0, 0, 0, 0, CS;
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < i; j++)
-                    H(j, i) = conj(H(i, j));
+                    H(i, j) = conj(H(j, i));
             solver.compute(H);
             for(int i=1;i<9;i++)
                 eigv[i][k] = solver.eigenvalues()[i-1]/evtohart;
